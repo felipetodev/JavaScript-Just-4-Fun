@@ -1,0 +1,221 @@
+body {
+    transition: all 300ms ease;
+}
+
+.dark-theme-btn {
+    position: fixed;
+    z-index: 999;
+    bottom: 1vh;
+    left: 1vw;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    font-size: 2rem;
+    font-weight: bold;
+    background-color: rebeccapurple;
+    color: white;
+    cursor: pointer;
+    outline: 0;
+    border: 0;
+}
+
+.dark-theme-btn:hover {
+    font-size: 2.1rem;
+    transition: all 300ms ease;
+    
+}
+
+.dark-mode {
+    background-color: #1f1f23;
+    color: white;
+    transition: all 300ms ease;
+}
+
+.online,
+.offline {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding: 1rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+    background-color: darkgreen;
+    color: white;
+}
+
+.offline {
+    background-color: darkred;
+}
+
+
+/******* Search Filters *******/
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.card {
+    background-color: rebeccapurple;
+    color: white;
+    transition: all 300ms ease-in-out;
+}
+
+.card img {
+    width: 100%;
+    height: auto;
+}
+
+.card figcaption {
+    padding: 1rem;
+}
+
+.filter {
+    /* display: none; */
+    visibility: hidden;
+    opacity: 0;
+    order: 1;
+}
+
+.slider {
+    position: relative;
+    
+}
+
+
+
+
+/************* ScrollSpy **************/
+@media screen and (min-width: 1024px) {
+    body {
+        display: grid;
+        grid-template-columns: 80% 20%;
+        grid-template-rows: 4rem auto;
+        grid-template-areas: 
+            "header header"
+            "main panel";
+    }
+
+    
+    main {
+        grid-area: main;
+    }
+
+    .header {
+        grid-area: header;
+    }
+
+    .panel {
+        grid-area: panel;
+        position: sticky;
+        align-self: start;
+        top: 4rem;
+        justify-content: flex-start;
+        background-color: #18181b;
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .panel-btn {
+        display: none;
+    }
+
+    .menu {
+        justify-content: start;
+        text-align: right;
+    }
+
+    .menu a {
+        font-size: 1rem;
+        padding: .75rem;
+    }
+
+    .menu a:hover,
+    .menu a.active {
+        color: #1f1f1f;
+        background-color: #f7df1e;
+    }
+}
+
+
+/*********** Contact Form Validations ***********/
+
+.contact-form {
+    --form-ok-color: #4caf50;
+    --form-error-color: #f44336;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+}
+
+.contact-form > * {
+    padding: 0.5rem;
+    margin: 1rem auto;
+    display: block;
+    width: 100%;
+}
+
+.contact-form textarea {
+    resize: none;
+}
+
+.contact-form legend,
+.contact-form-response {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.contact-form input,
+.contact-form textarea {
+    font-size: 1rem;
+    font-family: sans-serif;
+}
+
+.contact-form input[type="submit"] {
+    width: 50%;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.contact-form *::placeholder {
+    color: black;
+}
+
+.contact-form [required]:valid {
+    border: thin solid var(--form-ok-color);
+}
+
+.contact-form [required]:invalid {
+    border: thin solid var(--form-error-color);
+}
+
+.contact-form-error {
+    margin-top: -1rem;
+    font-size: 80%;
+    background-color: var(--form-error-color);
+    color: #fff;
+    transition: all 800ms ease;
+}
+
+.contact-form-error.is-active {
+    display: block;
+    animation: show-message 1s 1 normal 0 ease-out both;
+}
+
+.none {
+    display: none;
+}
+
+@keyframes show-message {
+    0% {
+        visibility: hidden;
+        opacity: 0;
+    }
+    100% {
+        visibility: visible;
+        opacity: 1;
+    }
+}

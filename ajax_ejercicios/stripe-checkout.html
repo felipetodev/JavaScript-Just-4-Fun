@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout con Stripe</title>
+    <style>
+        html {
+            box-sizing: border-box;
+            font-family: sans-serif;
+            font-size: 16px;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: inherit;
+        }
+
+        .frutos {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .frutos>* {
+            flex: 1 1 250px;
+            margin: 1rem;
+        }
+
+        .fruto {
+            background-color: #61b1a8;
+            color: #fff;
+            font-size: 125%;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease-out;
+        }
+
+
+        .fruto:hover {
+            opacity: .9;
+            transform: scale(.9);
+        }
+
+        .fruto img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .fruto figcaption {
+            padding: 1rem;
+        }
+
+
+
+    </style>
+</head>
+<body>
+    <h1>Checkout con Stripe!</h1>
+    <section id="frutos" class="frutos"></section>
+    <template id="frutos-template">
+        <figure class="fruto">
+            <img src="">
+            <figcaption>
+                <p class="name__description"></p>
+                <p class="product__quantity"></p>
+                <p class="product__prices"></p>
+            </figcaption>
+        </figure>
+    </template>
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="assets/stripe-checkout.js" type="module"></script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD API REST AXIOS</title>
+</head>
+<body>
+    <h1>CRUD API REST AXIOS</h1>
+    <section id="crud">
+        <article>
+            <h2 class="crud-title">Agregar Santo</h2>
+            <form class="crud-form">
+                <input type="text" name="nombre" placeholder="Nombre" required />
+                <br/>
+                <input type="text" name="constelacion" placeholder="Constelación" required />
+                <br/>
+                <input type="submit" value="Enviar" />
+                <input type="hidden" name="id" />
+            </form>
+        </article>
+        <article>
+            <h2>Ver Santos</h2>
+            <table class="crud-table">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Constelación</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </article>
+    </section>
+    <template id="crud-template">
+        <tr>
+            <td class="name"></td>
+            <td class="constellation"></td>
+            <td>
+                <button class="edit">Editar</button>
+                <button class="delete">Eliminar</button>
+            </td>
+        </tr>
+    </template>
+
+    <!--/****** JavaScript ******/-->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+
+        //Formulario Linkeado a API REST (JSON) el cual añada o quite elementos (items)
+
+            // const $test = document.querySelectorAll(".crud-form [required]");
+            // const $name = document.querySelectorAll(".crud-form input")
+            // console.log($name);
+            
+            // $test.forEach(input => {
+                
+            //     console.log(input.value);
+            // });
+
+        //API REST => (QUE DEBERIA ESTAR ACTUALIZADA Y SOLO FALTARIA PEGAR A DOM)
+        
+        (() => {
+            const d = document,
+                $table = d.querySelector(".crud-table"),
+                $form = d.querySelector(".crud-form"),
+                $title = d.querySelector(".crud-title"),
+                $template = d.getElementById("crud-template").content,
+                $fragment = d.createDocumentFragment();
+            
+            async function getAll() {
+                try {
+                    let res = await axios.get("http://localhost:5555/santos"),
+                        json = await res.data;
+
+                    json.forEach((el) => {
+                        //console.log(el);
+                        
+                        $template.querySelector(".name").textContent = el.nombre;
+                        $template.querySelector(".constellation").textContent = el.constelacion;
+                        $template.querySelector(".edit").dataset.id = el.id;
+                        $template.querySelector(".edit").dataset.name = el.nombre;
+                        $template.querySelector(".edit").dataset.constellation = el.constelacion;
+                        $template.querySelector(".delete").dataset.id = el.id;
+
+
+                    })
+
+                } catch(err) {
+                    let message = err.response.statusText || "Ocurrio un error";
+                    console.log(message);
+                
+                } finally {
+                    console.log("Esto se ejecutara independientemente del try... catch");
+                }
+            }
+
+            getAll();
+
+        })();
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <header class="header">
+        <section class="header-content container">
+            <article class="logo">
+                <img src="https://avatarfiles.alphacoders.com/115/thumb-115925.jpg" alt="">
+            </article>
+            <nav class="menu">
+                <a href="assets/home.html">Home</a>
+                <a href="assets/acerca.html">Acerca</a>
+                <a href="assets/servicios.html">Servicios</a>
+                <a href="assets/contacto.html">Contacto</a>
+            </nav>
+        </section>
+    </header>
+    <main class="container"></main>
+    <footer class="footer container">
+        <small>Sitio diseñado por nArUtO</small>
+    </footer>
+
+    <script>
+        const d = document,
+            $main = d.querySelector("main");
+        
+        const getHTML = (options) => {
+            let { url, success, error } = options;
+            const xhr = new XMLHttpRequest();
+
+            xhr.addEventListener("readystatechange", e => {
+                if(xhr.readyState !== 4) return;
+
+                if(xhr.status >= 200 && xhr.status < 300) {
+                    let html = xhr.responseText;
+                    success(html);
+                } else {
+                    let message = xhr.statusText || "Ocurrio un error";
+                    error(`Error ${xhr.status}: ${xhr.statusText}`);
+                }
+                
+            });
+
+            xhr.open("GET", url);
+
+            xhr.setRequestHeader("Content-type", "text/html; charset=utf-8");
+
+            xhr.send();
+
+        }
+
+        d.addEventListener("DOMContentLoaded", e => {
+            getHTML({
+                url: "assets/home.html",
+                success: (html) => $main.innerHTML = html,
+                error: (err) => $main.innerHTML = `<h1>${err}</h1>`
+            });
+        });
+
+        d.addEventListener("click", e => {
+            if(e.target.matches(".menu a")) {
+                e.preventDefault();
+
+                getHTML({
+                    url: e.target.href,
+                    success: (html) => $main.innerHTML = html,
+                    error: (err) => $main.innerHTML = `<h1>${err}</h1>`
+                });
+
+            }
+        });
+
+    </script>
+</body>
+</html>
